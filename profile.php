@@ -109,7 +109,7 @@ include_once('core/init.php');
 	</ul>
 	<div class="edit-button">
 		<span>
-			<?php echo $getFromF->followBtn($profileId, $user_id, $profileData->user_id); ?>
+				<?php echo $getFromF->followBtn($profileId, $user_id, $profileData->user_id); ?>
  		</span>
 	</div>
     </div>
@@ -368,9 +368,9 @@ include_once('core/init.php');
 <div class="in-right">
 	<div class="in-right-wrap">
 
-		<!--==WHO TO FOLLOW==-->
-	    <?php $getFromF->whoToFollow($user_id, $profileId); ?>
- 		<!--==WHO TO FOLLOW==-->
+			<!--==WHO TO FOLLOW==-->
+				<?php $getFromF->whoToFollow($user_id, $profileId); ?>
+			<!--==WHO TO FOLLOW==-->
 
 		<!--==TRENDS==-->
    	   <?php $getFromT->trends(); ?>
