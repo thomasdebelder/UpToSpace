@@ -7,7 +7,7 @@
 		// added new code for PHP 7
 		$this->message  = new Message($this->pdo);
 	}
- 
+
 	public function tweets($user_id, $num){
 	    $stmt = $this->pdo->prepare("SELECT * FROM `tweets` LEFT JOIN `users` ON `tweetBy` = `user_id` WHERE `tweetBy` = :user_id AND `retweetID` = '0' OR `tweetBy` = `user_id` AND `retweetBy` != :user_id AND `tweetBy` IN (SELECT `receiver` FROM `follow` WHERE `sender` =:user_id) ORDER BY `tweetID` DESC LIMIT :num");
 	    $stmt->bindParam(":user_id", $user_id, PDO::PARAM_INT);
@@ -15,10 +15,13 @@
 	    $stmt->execute();
 	    $tweets = $stmt->fetchAll(PDO::FETCH_OBJ);
 
+
+
 	    foreach ($tweets as $tweet) {
 	      $likes = $this->likes($user_id, $tweet->tweetID);
 	      $retweet = $this->checkRetweet($tweet->tweetID, $user_id);
 	      $user = $this->userData($tweet->retweetBy);
+             $filter = (!empty($_POST['filter']) ? $_POST['filter'] : '');  //filter select
 	     
 	      echo '<div class="all-tweet">
 			      <div class="t-show-wrap">
@@ -52,7 +55,7 @@
 			        		<div class="retweet-t-s-b-inner">
 			            '.((!empty($tweet->tweetImage)) ? '
 			        			<div class="retweet-t-s-b-inner-left">
-			        				<img src="'.$tweet->tweetImage.'" class="imagePopup" data-tweet="'.$tweet->tweetID.'"/>
+			        				<img src="'.$tweet->tweetImage.'" class="'.$filter.'" data-tweet="'.$tweet->tweetID.'"/>
 			        			</div>' : '').'
 			        			<div>
 			        				<div class="t-h-c-name">
@@ -90,7 +93,7 @@
 			            		<div class="t-show-body">
 			            		  <div class="t-s-b-inner">
 			            		   <div class="t-s-b-inner-in">
-			            		     <img src="'.$tweet->tweetImage.'" class="imagePopup" data-tweet="'.$tweet->tweetID.'"/>
+			            		    <img src="'.$tweet->tweetImage.'" class="'.$filter.'" data-tweet="'.$tweet->tweetID.'"/>
 			            		   </div>
 			            		  </div>
 			            		</div>
@@ -147,11 +150,7 @@
 			$this->message->sendNotification($get_id, $user_id, $tweet_id, 'like');
 		}
 	}
-  /*
-  ------------------------
-          LIKE UNLIKE -  FEATURE 8
-  ------------------------        
-  */
+
 	public function unLike($user_id, $tweet_id, $get_id){
 		$stmt = $this->pdo->prepare("UPDATE `tweets` SET `likesCount` = `likesCount`-1 WHERE `tweetID` = :tweet_id");
 		$stmt->bindParam(":tweet_id", $tweet_id, PDO::PARAM_INT);
@@ -162,6 +161,7 @@
 		$stmt->bindParam(":tweet_id", $tweet_id, PDO::PARAM_INT);
 		$stmt->execute(); 
 	}
+
 	public function likes($user_id, $tweet_id){
 		$stmt = $this->pdo->prepare("SELECT * FROM `likes` WHERE `likeBy` = :user_id AND `likeOn` = :tweet_id");
 		$stmt->bindParam(":user_id", $user_id, PDO::PARAM_INT);
@@ -169,18 +169,6 @@
 		$stmt->execute();
 		return $stmt->fetch(PDO::FETCH_ASSOC);
 	}
-	public function countLikes($user_id){
-		$stmt = $this->pdo->prepare("SELECT COUNT(`likeID`) AS `totalLikes` FROM `likes` WHERE `likeBy` = :user_id");
-		$stmt->bindParam(":user_id", $user_id, PDO::PARAM_INT);
-		$stmt->execute();
-		$count = $stmt->fetch(PDO::FETCH_OBJ);
-		echo $count->totalLikes;
-	} 
-	 /*
-  ------------------------
-          HASHTAG - FEATURE 20
-  ------------------------        
-  */
 	
 	public function getTrendByHash($hashtag){
 		$stmt = $this->pdo->prepare("SELECT * FROM `trends` WHERE `hashtag` LIKE :hashtag LIMIT 5");
@@ -232,8 +220,8 @@
 
 	public function getTweetLinks($tweet){
 		$tweet = preg_replace("/(https?:\/\/)([\w]+.)([\w\.]+)/", "<a href='$0' target='_blink'>$0</a>", $tweet);
-		$tweet = preg_replace("/#([\w]+)/", "<a href='http://localhost/twitter/hashtag/$1'>$0</a>", $tweet);		
-		$tweet = preg_replace("/@([\w]+)/", "<a href='http://localhost/twitter/$1'>$0</a>", $tweet);
+		$tweet = preg_replace("/#([\w]+)/", "<a href='http://localhost/UpToSpace/hashtag/$1'>$0</a>", $tweet);		
+		$tweet = preg_replace("/@([\w]+)/", "<a href='http://localhost/UpToSpace/$1'>$0</a>", $tweet);
 		return $tweet;		
 	}
 
@@ -290,11 +278,15 @@
 		$count = $stmt->fetch(PDO::FETCH_OBJ);
 		echo $count->totalTweets;
 	}
- /*
-------------------------
-	FEATURE 20 HASHTAG
--------------------------        
-*/
+
+	public function countLikes($user_id){
+		$stmt = $this->pdo->prepare("SELECT COUNT(`likeID`) AS `totalLikes` FROM `likes` WHERE `likeBy` = :user_id");
+		$stmt->bindParam(":user_id", $user_id, PDO::PARAM_INT);
+		$stmt->execute();
+		$count = $stmt->fetch(PDO::FETCH_OBJ);
+		echo $count->totalLikes;
+	} 
+
 	public function trends(){
 		$stmt = $this->pdo->prepare("SELECT *, COUNT(`tweetID`) AS `tweetsCount` FROM `trends` INNER JOIN `tweets` ON `status` LIKE CONCAT('%#',`hashtag`,'%') OR `retweetMsg` LIKE CONCAT('%#',`hashtag`,'%') GROUP BY `hashtag` ORDER BY `tweetID` LIMIT 10");
 		$stmt->execute();	

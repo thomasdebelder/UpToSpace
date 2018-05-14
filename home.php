@@ -2,8 +2,10 @@
   include 'core/init.php';
   $user_id = $_SESSION['user_id'];
   $user = $getFromU->userData($user_id);
-
+ 
 	$getFromU->delete('commentID', array('user_id' => '1'));
+
+$filter = (!empty($_POST['filter']) ? $_POST['filter'] : '');  //filter select
 
   if(isset($_POST['tweet'])){
     $status = $getFromU->checkinput($_POST['status']);
@@ -17,9 +19,10 @@
       if(strlen($status) > 140){
         $error = "The text of your tweet is too long";
       }
-         $tweet_id = $getFromU->create('tweets', array('status' => $status, 'tweetBy' => $user_id, 'tweetImage' => $tweetImage, 'postedOn' => date('Y-m-d H:i:s')));
-       preg_match_all("/#+([a-zA-Z0-9_]+)/i", $status, $hashtag);
-			// hashtag
+//insert in db = create
+        $tweet_id = $getFromU->create('tweets', array('status' => $status, 'tweetBy' => $user_id, 'tweetImage' => $tweetImage, 'postedOn' => date('Y-m-d H:i:s'),'filter' => $filter ));
+        preg_match_all("/#+([a-zA-Z0-9_]+)/i", $status, $hashtag);
+
       if(!empty($hashtag)){
         $getFromT->addTrend($status);
       }
@@ -35,6 +38,7 @@
 		  <meta charset="UTF-8" />
 		  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css"/>
  	  	  <link rel="stylesheet" href="assets/css/style-complete.css"/>
+        <link rel="stylesheet" href="https://cssgram-cssgram.netdna-ssl.com/cssgram.min.css">
    		  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	</head>
 	<!--Helvetica Neue-->
@@ -170,7 +174,40 @@
 						 			<input type="file" name="file" id="file"/>
 						 			<li><label for="file"><i class="fa fa-camera" aria-hidden="true"></i></label>
 						 			<span class="tweet-error"><?php if(isset($error)){echo $error;}else if(isset($imgError)){echo $imgError;} ?></span>
-						 			</li>
+
+                                        <?php echo "You have selected :" .$filter; // Displaying Selected Value ?>
+                                        <select name="filter">
+                                            <option value="">No filter</option>
+                                            <option value="_1977">1977</option>
+                                            <option value="aden">Aden</option>
+                                            <option value="brannan">Brannan</option>
+                                            <option value="brooklyn">Brooklyn</option>
+                                            <option value="clarendon">Clarendon</option>
+                                            <option value="earlybird">Earlybird</option>
+                                            <option value="gingham">Gingham</option>
+                                            <option value="hudson">Hudson</option>
+                                            <option value="inkwell">Inkwell</option>
+                                            <option value="kelvin">Kelvin</option>
+                                            <option value="lark">Lark</option>
+                                            <option value="lo-Fi">Lo-Fi</option>
+                                            <option value="maven">Maven</option>
+                                            <option value="mayfair">Mayfair</option>
+                                            <option value="moon">Moon</option>
+                                            <option value="nashville">Nashville</option>
+                                            <option value="perpetua">Perpetua</option>
+                                            <option value="reyes">Reyes</option>
+                                            <option value="rise">Rise</option>
+                                            <option value="slumber">Slumber</option>
+                                            <option value="stinson">Stinson</option>
+                                            <option value="toaster">Toaster</option>
+                                            <option value="valencia">Valencia</option>
+                                            <option value="walden">Walden</option>
+                                            <option value="willow">Willow</option>
+                                            <option value="xpro2">X-pro II</option>
+                                        </select>
+
+
+                                    </li>
 						 		</ul>
 						 	</div>
 						 	<div class="t-fo-right">
@@ -184,9 +221,9 @@
 				</div><!--TWEET WRAP END-->
 
 
-			<!--Tweet SHOW WRAPPER-->
-			<div class="tweets">
- 				  	<?php $getFromT->tweets($user_id, 20); ?>
+				<!--Tweet SHOW WRAPPER-->
+				 <div class="tweets">
+                     <?php $getFromT->tweets($user_id, 20); ?>
  				 </div>
  				<!--TWEETS SHOW WRAPPER-->
  
@@ -223,4 +260,5 @@
 </div><!-- inner wrapper ends-->
 </div><!-- ends wrapper -->
 </body>
+
 </html>
