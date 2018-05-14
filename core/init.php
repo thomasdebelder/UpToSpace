@@ -6,6 +6,9 @@
       global $pdo;
 
   	$getFromU = new User($pdo);
+  	$getFromT = new Tweet($pdo);
+    $getFromF = new Follow($pdo);
+    $getFromM = new Message($pdo);
 
         
     // gevonden in een tutorial zo moet je niet over de poort veranderen 
