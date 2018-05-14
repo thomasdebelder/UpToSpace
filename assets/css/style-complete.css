@@ -1874,7 +1874,7 @@ label{
 	font-size: 20px;
 	color: #0e749e;
 }
-.profile-info-wrap{position: relative;top: -560px;color: white;}
+.profile-info-wrap{position: relative;top: 0px;color: white;}
 .profile-name-wrap{
 	margin: 8px 2px;
 }
