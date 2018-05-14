@@ -11,8 +11,33 @@ if(isset($_POST['signup'])){
     $error = '';
     if(empty($screenName) or empty($password) or empty($email)){
         $error = 'All fields are required';
-    }else {
+    }
+    else {
+        $email = $getFromU->checkInput($email);
+        $screenName = $getFromU->checkInput($screenName);
+        $password = $getFromU->checkInput($password);
+        if(!filter_var($email)) {
+            $error = 'Invalid email format';
+        }
+        else if(strlen($screenName) > 20){
+            $error = 'Name must be between in 6-20 characters';
+        }
+        else if(strlen($password) < 5){
+            $error = 'Password is too short';
+        }
+        else if($password != $passwordConfirm ) {
+            $error = 'Please put in the same password twice';
+        }
 
+        else {
+            if($getFromU->checkEmail($email) === true){
+                $error = 'Email is already in use';
+            }else {
+                $user_id = $getFromU->create('users', array('email' => $email, 'password' => password_hash($password, PASSWORD_BCRYPT) , 'screenName' => $screenName, 'profileImage' => 'assets/images/defaultProfileImage.png', 'profileCover' => 'assets/images/defaultCoverImage.png'));
+                $_SESSION['user_id'] = $user_id;
+                header('Location: home.php');
+            }
+        }
     }
 }
 ?>
