@@ -7,7 +7,7 @@
 		// added new code for PHP 7
 		$this->message  = new Message($this->pdo);
 	}
-
+ 
 	public function tweets($user_id, $num){
 	    $stmt = $this->pdo->prepare("SELECT * FROM `tweets` LEFT JOIN `users` ON `tweetBy` = `user_id` WHERE `tweetBy` = :user_id AND `retweetID` = '0' OR `tweetBy` = `user_id` AND `retweetBy` != :user_id AND `tweetBy` IN (SELECT `receiver` FROM `follow` WHERE `sender` =:user_id) ORDER BY `tweetID` DESC LIMIT :num");
 	    $stmt->bindParam(":user_id", $user_id, PDO::PARAM_INT);
@@ -15,13 +15,10 @@
 	    $stmt->execute();
 	    $tweets = $stmt->fetchAll(PDO::FETCH_OBJ);
 
-
-
 	    foreach ($tweets as $tweet) {
 	      $likes = $this->likes($user_id, $tweet->tweetID);
 	      $retweet = $this->checkRetweet($tweet->tweetID, $user_id);
 	      $user = $this->userData($tweet->retweetBy);
-             $filter = (!empty($_POST['filter']) ? $_POST['filter'] : '');  //filter select
 	     
 	      echo '<div class="all-tweet">
 			      <div class="t-show-wrap">
@@ -55,7 +52,7 @@
 			        		<div class="retweet-t-s-b-inner">
 			            '.((!empty($tweet->tweetImage)) ? '
 			        			<div class="retweet-t-s-b-inner-left">
-			        				<img src="'.$tweet->tweetImage.'" class="'.$filter.'" data-tweet="'.$tweet->tweetID.'"/>
+			        				<img src="'.$tweet->tweetImage.'" class="imagePopup" data-tweet="'.$tweet->tweetID.'"/>
 			        			</div>' : '').'
 			        			<div>
 			        				<div class="t-h-c-name">
@@ -93,7 +90,7 @@
 			            		<div class="t-show-body">
 			            		  <div class="t-s-b-inner">
 			            		   <div class="t-s-b-inner-in">
-			            		    <img src="'.$tweet->tweetImage.'" class="'.$filter.'" data-tweet="'.$tweet->tweetID.'"/>
+			            		     <img src="'.$tweet->tweetImage.'" class="imagePopup" data-tweet="'.$tweet->tweetID.'"/>
 			            		   </div>
 			            		  </div>
 			            		</div>
@@ -220,8 +217,8 @@
 
 	public function getTweetLinks($tweet){
 		$tweet = preg_replace("/(https?:\/\/)([\w]+.)([\w\.]+)/", "<a href='$0' target='_blink'>$0</a>", $tweet);
-		$tweet = preg_replace("/#([\w]+)/", "<a href='http://localhost/UpToSpace/hashtag/$1'>$0</a>", $tweet);		
-		$tweet = preg_replace("/@([\w]+)/", "<a href='http://localhost/UpToSpace/$1'>$0</a>", $tweet);
+		$tweet = preg_replace("/#([\w]+)/", "<a href='http://localhost/twitter/hashtag/$1'>$0</a>", $tweet);		
+		$tweet = preg_replace("/@([\w]+)/", "<a href='http://localhost/twitter/$1'>$0</a>", $tweet);
 		return $tweet;		
 	}
 
@@ -262,6 +259,13 @@
 		$stmt->bindParam(":tweet_id", $tweet_id, PDO::PARAM_INT);
 		$stmt->execute();
 		return $stmt->fetch(PDO::FETCH_OBJ);
+	}
+
+	public function comments($tweet_id){
+		$stmt = $this->pdo->prepare("SELECT * FROM `comments` LEFT JOIN `users` ON `commentBy` = `user_id` WHERE `commentOn` = :tweet_id");
+		$stmt->bindParam(":tweet_id", $tweet_id, PDO::PARAM_INT);
+		$stmt->execute();
+		return $stmt->fetchAll(PDO::FETCH_OBJ);
 	}
 
 	public function countTweets($user_id){

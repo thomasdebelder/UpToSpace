@@ -245,7 +245,7 @@ $filter = (!empty($_POST['filter']) ? $_POST['filter'] : '');  //filter select
 
 		       
 			</div><!-- in left wrap-->
-		<!--</div><!-- in center end -->
+		<!--</div>
 
 		<div class="in-right">
 			<div class="in-right-wrap">
