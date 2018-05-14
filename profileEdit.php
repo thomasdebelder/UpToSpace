@@ -6,8 +6,6 @@
 
   $user_id = $_SESSION['user_id'];
   $user    = $getFromU->userData($user_id);
-  $notify  = $getFromM->getNotificationCount($user_id);
-
  
   if(isset($_POST['screenName'])) {
     if(!empty($_POST['screenName'])) {
