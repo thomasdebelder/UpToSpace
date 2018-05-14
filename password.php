@@ -60,7 +60,7 @@
 		        <ul>
 		          <li><a href="home.php">Home</a></li>
 	              <li><a href="profileEdit.php">Profile</a></li>
-                  <li id="messagePopup"><a>Messages<span id="messages"><?php if($notify->totalM > 0){echo '<span class="span-i">'.$notify->totalM.'</span>';}?></span></a></li>
+                  <li id="messagePopup"><a>Messages<span id="messages"></span></a></li>
                   <li><a href="account.php">Settings</a></li>
 				  <li><a href="logout.php">Log out</a></li>
 				</ul>
