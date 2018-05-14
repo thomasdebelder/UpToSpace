@@ -3,8 +3,8 @@
 	$user = 'root';
     $password = 'root';
     
-    try{
+    try {
 		$pdo = new PDO($db, $user, $password);
-	}catch(PDOException $e){
+	} catch(PDOException $e){
 		echo 'connection error! ' . $e;
     }
