@@ -147,7 +147,11 @@
 			$this->message->sendNotification($get_id, $user_id, $tweet_id, 'like');
 		}
 	}
-
+  /*
+  ------------------------
+          LIKE UNLIKE -  FEATURE 8
+  ------------------------        
+  */
 	public function unLike($user_id, $tweet_id, $get_id){
 		$stmt = $this->pdo->prepare("UPDATE `tweets` SET `likesCount` = `likesCount`-1 WHERE `tweetID` = :tweet_id");
 		$stmt->bindParam(":tweet_id", $tweet_id, PDO::PARAM_INT);
@@ -158,7 +162,6 @@
 		$stmt->bindParam(":tweet_id", $tweet_id, PDO::PARAM_INT);
 		$stmt->execute(); 
 	}
-
 	public function likes($user_id, $tweet_id){
 		$stmt = $this->pdo->prepare("SELECT * FROM `likes` WHERE `likeBy` = :user_id AND `likeOn` = :tweet_id");
 		$stmt->bindParam(":user_id", $user_id, PDO::PARAM_INT);
@@ -166,6 +169,18 @@
 		$stmt->execute();
 		return $stmt->fetch(PDO::FETCH_ASSOC);
 	}
+	public function countLikes($user_id){
+		$stmt = $this->pdo->prepare("SELECT COUNT(`likeID`) AS `totalLikes` FROM `likes` WHERE `likeBy` = :user_id");
+		$stmt->bindParam(":user_id", $user_id, PDO::PARAM_INT);
+		$stmt->execute();
+		$count = $stmt->fetch(PDO::FETCH_OBJ);
+		echo $count->totalLikes;
+	} 
+	 /*
+  ------------------------
+          HASHTAG - FEATURE 20
+  ------------------------        
+  */
 	
 	public function getTrendByHash($hashtag){
 		$stmt = $this->pdo->prepare("SELECT * FROM `trends` WHERE `hashtag` LIKE :hashtag LIMIT 5");
@@ -275,15 +290,6 @@
 		$count = $stmt->fetch(PDO::FETCH_OBJ);
 		echo $count->totalTweets;
 	}
-
-	public function countLikes($user_id){
-		$stmt = $this->pdo->prepare("SELECT COUNT(`likeID`) AS `totalLikes` FROM `likes` WHERE `likeBy` = :user_id");
-		$stmt->bindParam(":user_id", $user_id, PDO::PARAM_INT);
-		$stmt->execute();
-		$count = $stmt->fetch(PDO::FETCH_OBJ);
-		echo $count->totalLikes;
-	} 
-
 	public function trends(){
 		$stmt = $this->pdo->prepare("SELECT *, COUNT(`tweetID`) AS `tweetsCount` FROM `trends` INNER JOIN `tweets` ON `status` LIKE CONCAT('%#',`hashtag`,'%') OR `retweetMsg` LIKE CONCAT('%#',`hashtag`,'%') GROUP BY `hashtag` ORDER BY `tweetID` LIMIT 10");
 		$stmt->execute();	
