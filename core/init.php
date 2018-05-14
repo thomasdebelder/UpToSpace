@@ -1,7 +1,7 @@
 <?php 
 	session_start();
-	include 'database/connection.php';
-	include 'classes/user.php';
+	include_once('database/connection.php');
+	include_once('classes/User.php');
     //je kan globale variabelen vanaf elke plek oproepen (ook vanuit functies of methodes)
       global $pdo;
 
