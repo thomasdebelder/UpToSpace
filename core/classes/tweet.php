@@ -290,6 +290,11 @@
 		$count = $stmt->fetch(PDO::FETCH_OBJ);
 		echo $count->totalTweets;
 	}
+ /*
+------------------------
+	FEATURE 20 HASHTAG
+-------------------------        
+*/
 	public function trends(){
 		$stmt = $this->pdo->prepare("SELECT *, COUNT(`tweetID`) AS `tweetsCount` FROM `trends` INNER JOIN `tweets` ON `status` LIKE CONCAT('%#',`hashtag`,'%') OR `retweetMsg` LIKE CONCAT('%#',`hashtag`,'%') GROUP BY `hashtag` ORDER BY `tweetID` LIMIT 10");
 		$stmt->execute();	
