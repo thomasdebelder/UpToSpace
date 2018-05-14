@@ -15,7 +15,7 @@ $(function(){
 	$(document).on('keyup', '.search-user', function(){
 		$('.message-recent').hide();
 		var search = $(this).val();
-		$.post('http://localhost:8888/UpToSpace//core/ajax/searchUserInMsg.php', {search:search}, function(data){
+		$.post('http://localhost:8888/UpToSpace/core/ajax/searchUserInMsg.php', {search:search}, function(data){
 			$('.message-body').html(data);
 		});
 	});

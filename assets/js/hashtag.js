@@ -11,7 +11,7 @@ $(function(){
   
         $.ajax({
           type: "POST",
-          url: "http://localhost:8888/twitter/core/ajax/getHashtag.php",
+          url: "http://localhost:8888/UpToSpace//core/ajax/getHashtag.php",
           data: dataString,
           cache: false,
           success: function(data){
