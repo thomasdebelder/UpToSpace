@@ -193,7 +193,7 @@ if($i < count($fields)) {
       $where = " AND ";
     }
     if($stmt = $this->pdo->prepare($sql)) {
-      foreach($arry as $name => $value) {
+      foreach($array as $name => $value) {
         $stmt->bindValue(':' .$name, $value);
         //sql .= ";";
         //$stmt = $this->pdo->prepare($sql);
