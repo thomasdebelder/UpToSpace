@@ -74,11 +74,13 @@
       else {
         return false;
       }
-	}	
-	  public function loggedIn() {
-		  return (isset($_SESSION['user_id'])) ? true : false;
-	  }
-	  public function userIdbyUsername($username) {
+  }	
+  
+	public function loggedIn() {
+		return (isset($_SESSION['user_id'])) ? true : false;
+	}
+
+	public function userIdbyUsername($username) {
       $stmt = $this->pdo->prepare("SELECT `user_id` FROM `users` WHERE (`username` = :username)");
       $stmt->bindParam("username", $username, PDO::PARAM_STR);
       $stmt->execute();
