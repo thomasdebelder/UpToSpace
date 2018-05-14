@@ -3,7 +3,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET" && realpath(__FILE__) == realpath($_SERV
 	header('Location: index.php');
 }
 if(isset($_POST['signup'])){
-    //uitlezen values input names, bij niet ingevuld een error geven
+    //ophalen ingegeven values bij input velden
     $screenName = $_POST['screenName'];
     $email = $_POST['email'];
     $password = $_POST['password'];
@@ -11,8 +11,7 @@ if(isset($_POST['signup'])){
     $error = '';
     if(empty($screenName) or empty($password) or empty($email)){
         $error = 'All fields are required';
-    }
-    else {
+    }else {
         $email = $getFromU->checkInput($email);
         $screenName = $getFromU->checkInput($screenName);
         $password = $getFromU->checkInput($password);
