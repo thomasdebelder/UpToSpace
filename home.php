@@ -3,6 +3,8 @@
   $user_id = $_SESSION['user_id'];
   $user = $getFromU->userData($user_id);
 
+	$getFromU->delete('commentID', array('user_id' => '1'));
+
   if(isset($_POST['tweet'])){
     $status = $getFromU->checkinput($_POST['status']);
     $tweetImage = '';
