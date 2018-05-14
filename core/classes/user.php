@@ -20,7 +20,28 @@
       if($request == 'GET' && $currentFile == $currently) {
         header('Location: index.php');
       }
-	  }
+    }
+
+
+      /*
+  ------------------------
+          SEARCH
+  ------------------------        
+  */
+    	
+	public function search($search) {
+    $stmt = $this->pdo->prepare("SELECT `user_id`,`username`,`screenName`,`profileImage`,`profileCover` FROM `users` WHERE `username` LIKE ? OR `screenName` LIKE ?");
+    $stmt->bindValue(1, $search.'%', PDO::PARAM_STR);
+    $stmt->bindValue(2, $search.'%', PDO::PARAM_STR);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_OBJ);
+}
+      /*
+  ------------------------
+          END SEARCH
+  ------------------------        
+  */
+
     public function register($email, $password, $screenName){ 
       $passwordHash = password_hash($password, PASSWORD_BCRYPT); 
       $stmt = $this->pdo->prepare("INSERT INTO `users` (`email`, `password`, `screenName`, `profileImage`, `profileCover`) VALUES (:email, :password, :screenName, 'assets/images/defaultprofileimage.png', 'assets/images/defaultCoverImage.png')"); 
