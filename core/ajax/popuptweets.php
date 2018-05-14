@@ -3,13 +3,11 @@
 	
 	if(isset($_POST['showpopup']) && !empty($_POST['showpopup'])){
 		$tweetID = $_POST['showpopup'];
-		$user_id = @$_SESSION['user_id'];
+		$user_id = $_SESSION['user_id'];
 		$tweet   = $getFromT->tweetPopup($tweetID);
 		$user    = $getFromU->userData($user_id);
 		$likes   = $getFromT->likes($user_id, $tweetID);
 		$retweet = $getFromT->checkRetweet($tweetID,$user_id);
-		$comments = $getFromT->comments($tweetID);
-
    	}
 ?>
 <div class="tweet-show-popup-wrap">
