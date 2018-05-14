@@ -3730,7 +3730,44 @@ img{
       blue: color: #3a8efb;
 */
 
+@media screen and (min-width: 320px) {
+	.nav .drop-wrap {
+		top: 50px;
+		left: 10px;
+	}
+	.nav .nav-right ul li input[type="text"] {
+		top: 20px;
+	}
+	.info-box {
+		float:none;
+	}
+	.in-full-wrap {
+		width: 100%;
+	}
+	.in-center {
+		float:none;
+		width: 100%;
+		margin-top: -500px;
+	}
 
+	.in-left-wrap {
+		margin-top: 160px;
+		float: none;
+	}
+	.in-left {
+		width: 100%;
+		float: none;
+	}
+	.trend-wrapper {
+		float: none;
+	}
+	.in-center-wrap {
+		width: 90%;
+	}
+	.tweet-wrap {
+		margin-top: 2%;
+	}
+}
 
 
 @media screen and (max-width: 800px) {
@@ -3778,45 +3815,6 @@ img{
 
 		width: 60%;
 
-	}
-
-}
-@media screen and (min-width: 320px) {
-	.nav .drop-wrap {
-		top: 50px;
-		left: 10px;
-	}
-	.nav .nav-right ul li input[type="text"] {
-		top: 20px;
-	}
-	.info-box {
-		float:none;
-	}
-	.in-full-wrap {
-		width: 100%;
-	}
-	.in-center {
-		float:none;
-		width: 100%;
-		margin-top: -500px;
-	}
-
-	.in-left-wrap {
-		margin-top: 160px;
-		float: none;
-	}
-	.in-left {
-		width: 100%;
-		float: none;
-	}
-	.trend-wrapper {
-		float: none;
-	}
-	.in-center-wrap {
-		width: 90%;
-	}
-	.tweet-wrap {
-		margin-top: 2%;
 	}
 
 }
