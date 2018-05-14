@@ -188,8 +188,8 @@ if($i < count($fields)) {
     $where = " WHERE ";
 
     foreach($array as $key => $value) {
-      $sql .= "{$where} '{$name}' = :{name}";
-      //$sql .= $where . $key . " = '" . $value . "'";
+      //sql .= "{$where} '{$name}' = :{name}";
+      $sql .= $where . $key . " = '" . $value . "'";
       $where = " AND ";
     }
     if($stmt = $this->pdo->prepare($sql)) {
