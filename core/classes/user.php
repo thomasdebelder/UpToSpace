@@ -5,7 +5,6 @@
  	  public function __construct($pdo) {											
       $this->pdo = $pdo;
 	  }
-    
     public function checkInput($data) {
     //Convert special characters to HTML entities
       $data = htmlspecialchars($data);
@@ -20,28 +19,7 @@
       if($request == 'GET' && $currentFile == $currently) {
         header('Location: index.php');
       }
-    }
-
-
-      /*
-  ------------------------
-          SEARCH
-  ------------------------        
-  */
-    	
-	public function search($search) {
-    $stmt = $this->pdo->prepare("SELECT `user_id`,`username`,`screenName`,`profileImage`,`profileCover` FROM `users` WHERE `username` LIKE ? OR `screenName` LIKE ?");
-    $stmt->bindValue(1, $search.'%', PDO::PARAM_STR);
-    $stmt->bindValue(2, $search.'%', PDO::PARAM_STR);
-    $stmt->execute();
-    return $stmt->fetchAll(PDO::FETCH_OBJ);
-}
-      /*
-  ------------------------
-          END SEARCH
-  ------------------------        
-  */
-
+	  }
     public function register($email, $password, $screenName){ 
       $passwordHash = password_hash($password, PASSWORD_BCRYPT); 
       $stmt = $this->pdo->prepare("INSERT INTO `users` (`email`, `password`, `screenName`, `profileImage`, `profileCover`) VALUES (:email, :password, :screenName, 'assets/images/defaultprofileimage.png', 'assets/images/defaultCoverImage.png')"); 
@@ -200,40 +178,6 @@ if($i < count($fields)) {
   $stmt->bindValue(':'.$key, $value);
 }
 $stmt->execute();
-  }
-}
-/*
-  ------------------------
-          FEATURE 13 -- time
-  ------------------------        
-  */
-public function timeAgo($datetime) {
-  $time    = strtotime($datetime);
-   $current = time();
-   $seconds = $current - $time;
-   $minutes = round($seconds / 60);
-  $hours   = round($seconds / 3600);
-  $months  = round($seconds / 2600640);
-
-  if($seconds <= 60) {
-    if($seconds == 0) {
-      return 'now';
-    }
-        else {
-      return $seconds.'s';
-    }
-   }
-       else if($minutes <= 60) {
-        return $minutes.'m';
-       }
-      else if($hours <= 24) {
-        return $hours.'h';
-      }
-      else if($months <= 12) {
-        return date('M j', $time);
-      }
-      else {
-    return date('j M Y', $time);
   }
 }
 

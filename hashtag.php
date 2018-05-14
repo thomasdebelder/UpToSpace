@@ -28,30 +28,7 @@ include 'core/init.php';
 <div class="header-wrapper">	
 	<div class="nav-container">
     	<div class="nav">
-        <div class="nav-right">
-        <ul>
-		  <li class="hover"><label class="drop-label" for="drop-wrap1"><img src="<?php echo $user->profileImage; ?>"/></label>
-		  <input type="checkbox" id="drop-wrap1">
-		    <div class="drop-wrap">
-		      <div class="drop-inner">
-		        <ul>
-		          <li><a href="home.php">Home</a></li>
-	              <li><a href="profileEdit.php">Profile</a></li>
-                  <li id="messagePopup"><a>Messages<span id="messages"><?php if($notify->totalM > 0){echo '<span class="span-i">'.$notify->totalM.'</span>';}?></span></a></li>
-                  <li><a href="account.php">Settings</a></li>
-				  <li><a href="logout.php">Log out</a></li>
-				</ul>
-		      </div>
-		    </div>
-		  </li>
-		  <li>
-            <input type="text" placeholder="Search" class= "search"/>
-		    <div class="search-result"></div>
-		  </li>
-		  <li>
-		    <label class="addTweetBtn">New Post</label></li>
-		</ul>
-		</div><!-- nav right ends-->
+        
 
 <!--#hash-header-->
 <div class="hash-header">
