@@ -115,7 +115,7 @@
   }
   /*
   ------------------------
-          EDIT USER PROFILE FEATURE 3
+          EDIT USER PROFILE EDIT.php 
   ------------------------        
   */
   public function userData($user_id) {
@@ -126,7 +126,7 @@
     return $stmt->fetch(PDO::FETCH_OBJ);
 }
 /*
-          image uploaden     
+          IMAGE UPLOADE
 */
   public function uploadImage($file) {
     $filename   = $file['name'];
@@ -158,5 +158,29 @@
      $GLOBALS['imgError'] = "Only alloewd JPG, PNG JPEG extensions";
     }
  }
+ /*
+          UPDATE
+*/
+ public function update($table, $user_id, $fields) {
+  $columns = '';
+  $i       = 1;
+
+  foreach ($fields as $name => $value) {
+    $columns .= "`{$name}` = :{$name} ";
+if($i < count($fields)) {
+  $columns .= ', ';
+  }
+  $i++;
+  }
+  $sql = "UPDATE {$table} SET {$columns} WHERE `user_id` = {$user_id}";
+  
+  if($stmt = $this->pdo->prepare($sql)) {
+    foreach ($fields as $key => $value) {
+  $stmt->bindValue(':'.$key, $value);
+}
+$stmt->execute();
+  }
+}
+
 } // end of User class
 ?>
