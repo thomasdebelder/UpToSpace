@@ -51,11 +51,6 @@
         return $this->pdo->lastInsertId();
 		}
 	}
-
-<<<<<<< HEAD
-=======
-	
-
 	public function checkUsername($username) {
       $stmt = $this->pdo->prepare("SELECT `username` FROM `users` WHERE `username` = :username");
       $stmt->bindParam(':username', $username, PDO::PARAM_STR);
@@ -85,7 +80,7 @@
       }
 	}	
 
->>>>>>> 47d6c79bf2b67d5d9da2edf139e320c93a2fd476
+
 	public function loggedIn() {
 		return (isset($_SESSION['user_id'])) ? true : false;
 	}
