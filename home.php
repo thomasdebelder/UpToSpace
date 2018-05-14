@@ -182,9 +182,9 @@
 				</div><!--TWEET WRAP END-->
 
 
-				<!--Tweet SHOW WRAPPER-->
-				 <div class="tweets">
- 				  	<?php $getFromT->tweets($user_id, 10); ?>
+			<!--Tweet SHOW WRAPPER-->
+			<div class="tweets">
+ 				  	<?php $getFromT->tweets($user_id, 20); ?>
  				 </div>
  				<!--TWEETS SHOW WRAPPER-->
  
