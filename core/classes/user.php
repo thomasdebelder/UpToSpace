@@ -79,15 +79,6 @@
 	public function loggedIn() {
 		return (isset($_SESSION['user_id'])) ? true : false;
 	}
-
-	public function userIdbyUsername($username) {
-      $stmt = $this->pdo->prepare("SELECT `user_id` FROM `users` WHERE (`username` = :username)");
-      $stmt->bindParam("username", $username, PDO::PARAM_STR);
-      $stmt->execute();
-	    
-      $user = $stmt->fetch(PDO::FETCH_OBJ);
-	    return $user->user_id;
-	}
   /*
   ------------------------
           LOGIN 
@@ -99,12 +90,29 @@
     $stmt->execute();
     $user = $stmt->fetch(PDO::FETCH_OBJ);
     $hash = $user->password;
+    
     if(password_verify($password, $hash)){
-        $_SESSION['user_id'] = $user->user_id;
-        header('Location: home.php');
-    }else{
-        return false;
+      $_SESSION['user_id'] = $user->user_id;
+      header('Location: home.php');
     }
-}    
+    else {
+      return false;
+    }
+  }
+  /*
+  ------------------------
+          PROFILE
+  ------------------------        
+  */
+  public function userIdbyUsername($username) {
+    $stmt = $this->pdo->prepare("SELECT `user_id` FROM `users` WHERE (`username` = :username)");
+    $stmt->bindParam("username", $username, PDO::PARAM_STR);
+    $stmt->execute();
+  
+    $user = $stmt->fetch(PDO::FETCH_OBJ);
+    
+    return $user->user_id;
+  }
+
 } // end of User class
 ?>
