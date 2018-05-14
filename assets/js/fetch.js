@@ -1,6 +1,6 @@
 $(function(){
 	var win = $(window);
-	var offset = 10;
+	var offset = 20;
 
 	win.scroll(function(){
 		if($(document).height() <= (win.height() + win.scrollTop())){
