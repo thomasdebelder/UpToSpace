@@ -2,8 +2,6 @@
   include 'core/init.php';
   $user_id = $_SESSION['user_id'];
   $user = $getFromU->userData($user_id);
-  $notify  = $getFromM->getNotificationCount($user_id);
-
 
   if(isset($_POST['tweet'])){
     $status = $getFromU->checkinput($_POST['status']);
@@ -223,5 +221,4 @@
 </div><!-- inner wrapper ends-->
 </div><!-- ends wrapper -->
 </body>
-
 </html>
