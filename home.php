@@ -5,7 +5,6 @@
  
 	$getFromU->delete('commentID', array('user_id' => '1'));
 
-$filter = (!empty($_POST['filter']) ? $_POST['filter'] : '');  //filter select
 
   if(isset($_POST['tweet'])){
     $status = $getFromU->checkinput($_POST['status']);
@@ -20,7 +19,7 @@ $filter = (!empty($_POST['filter']) ? $_POST['filter'] : '');  //filter select
         $error = "The text of your tweet is too long";
       }
 //insert in db = create
-        $tweet_id = $getFromU->create('tweets', array('status' => $status, 'tweetBy' => $user_id, 'tweetImage' => $tweetImage, 'postedOn' => date('Y-m-d H:i:s'),'filter' => $filter ));
+        $tweet_id = $getFromU->create('tweets', array('status' => $status, 'tweetBy' => $user_id, 'tweetImage' => $tweetImage, 'postedOn' => date('Y-m-d H:i:s')));
         preg_match_all("/#+([a-zA-Z0-9_]+)/i", $status, $hashtag);
 
       if(!empty($hashtag)){
