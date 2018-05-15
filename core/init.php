@@ -17,4 +17,4 @@
     // gevonden in een tutorial zo moet je niet over de poort veranderen 
     // BASE_URL overal zetten en het werkt
     
-define('BASE_URL', 'http://localhost:8888/UpToSpace/');
+define('BASE_URL', 'http://localhost/UpToSpace/');
