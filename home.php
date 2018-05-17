@@ -6,7 +6,7 @@ $user = $getFromU->userData($user_id);
 
 
 if(isset($_POST['tweet'])){
-    $status = $getFromU->checkinput($_POST['status']);
+    $status = $getFromU->checkInput($_POST['status']);
     $tweetImage = '';
 
     if(!empty($status) or !empty($_FILES['file']['name'][0])){
