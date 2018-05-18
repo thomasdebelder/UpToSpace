@@ -126,19 +126,17 @@
       }
 	}
 
-	public function checkPassword($password) {
-		$stmt = $this->pdo->prepare("SELECT `password` FROM `users` WHERE `password` = :password");
-		$stmt->bindParam(':password', md5($password), PDO::PARAM_STR);
-		$stmt->execute();
-
-		$count = $stmt->rowCount();
-		if($count > 0){
-		  return true;
-		}
-        else {
-		  return false;
-		}
-	}
+public function checkPassword($password) {
+  $stmt = $this->pdo->prepare("SELECT `user_id` FROM `users` WHERE `password` = :password");
+  $stmt->execute(array("password" =>password_hash($password, PASSWORD_BCRYPT)));
+  $count = $stmt->rowCount();
+  if($count > 0){
+    return true;
+  } 
+  else{
+    return false;
+  }
+}
 
 	public function checkEmail($email) {
       $stmt = $this->pdo->prepare("SELECT `email` FROM `users` WHERE `email` = :email");
