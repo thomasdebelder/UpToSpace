@@ -7,7 +7,6 @@ include 'core/init.php';
 		$user     = $getFromU->userData($user_id);
 		$tweets   = $getFromT->getTweetsByHash($hashtag);
 		$accounts = $getFromT->getUsersByHash($hashtag);
-		$notify  = $getFromM->getNotificationCount($user_id);
 
    	}else{
 		header('Location: index.php');
