@@ -47,7 +47,7 @@
     $passwordHash = password_hash($password, PASSWORD_BCRYPT); 
     $stmt = $this->pdo->prepare("INSERT INTO `users` (`email`, `password`, `screenName`, `profileImage`, `profileCover`) VALUES (:email, :password, :screenName, 'assets/images/defaultprofileimage.png', 'assets/images/defaultCoverImage.png')"); 
     $stmt->bindParam(":email", $email, PDO::PARAM_STR); 
-     $stmt->bindParam(":password", $passwordHash , PDO::PARAM_STR); 
+    $stmt->bindParam(":password", $passwordHash , PDO::PARAM_STR);
     $stmt->bindParam(":screenName", $screenName, PDO::PARAM_STR); 
     $stmt->execute(); 
 

@@ -368,13 +368,7 @@ include_once('core/init.php');
 <div class="in-right">
 	<div class="in-right-wrap">
 
-			<!--==WHO TO FOLLOW==-->
-				<?php $getFromF->whoToFollow($user_id, $profileId); ?>
-			<!--==WHO TO FOLLOW==-->
 
-		<!--==TRENDS==-->
-   	   <?php $getFromT->trends(); ?>
- 	 	<!--==TRENDS==-->
 
 	</div><!-- in right wrap-->
 </div>

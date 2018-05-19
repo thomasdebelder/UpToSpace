@@ -136,49 +136,7 @@
 </div>
 <div class="profile-nav">
 	<div class="profile-navigation">
-		<ul>
-			<li>
-				<a href="#">
-					<div class="n-head">
-						TWEETS
-					</div>
-					<div class="n-bottom">
-					  <?php $getFromT->countTweets($user_id); ?>
-					</div>
-				</a>
-			</li>
-			<li>
-				<a href="#">
-					<div class="n-head">
-						FOLLOWINGS
-					</div>
-					<div class="n-bottom">
-						<?php echo $user->following;?>
-					</div>
-				</a>
-			</li>
-			<li>
-				<a href="#">
-					<div class="n-head">
-						FOLLOWERS
-					</div>
-					<div class="n-bottom">
-						<?php echo $user->followers;?>
-					</div>
-				</a>
-			</li>
-			<li>
-				<a href="#">
-					<div class="n-head">
-						LIKES
-					</div>
-					<div class="n-bottom">
-						<?php $getFromT->countTweets($user_id); ?>
-					</div>
-				</a>
-			</li>
-			
-		</ul>
+
 		<div class="edit-button">
 			<span>
 				<button class="f-btn" type="button" onclick="window.location.href='<?php echo $user->username;?>'" value="Cancel">Cancel</button>
