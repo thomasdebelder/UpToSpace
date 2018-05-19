@@ -37,17 +37,7 @@ include 'core/init.php';
 </div>	
 <!--#hash-header end-->
 
-<!--hash-menu-->
-<div class="hash-menu">
-	<div class="hash-menu-inner">
-		<ul><!--
- 			<li><a href="<?php echo BASE_URL.''?>">Latest</a></li>
-			<li><a href="<?php echo BASE_URL.''?>">Accounts</a></li>
-			<li><a href="<?php echo BASE_URL.''?>">Photos</a></li>-->
-  		</ul>
-	</div>
-</div>
-<!--hash-menu-->
+
 <!---Inner wrapper-->
 
 <div class="in-wrapper">
